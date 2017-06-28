@@ -14,7 +14,7 @@ public class Solver {
 		char[] temp = a.toCharArray();
 		int[] thing = new int[a.length()];
 		for (int i = 0; i < temp.length; i++) {
-			thing[i] = temp[i] - 'a' + 0;
+			thing[i] = temp[i] - 'a';
 			// -64 is a space
 		}
 		
@@ -25,7 +25,7 @@ public class Solver {
 		
 		String temp = "";
 		for (int i = 0; i < b.length; i++) {
-				temp = temp + String.valueOf((char) (b[i] + 'a' + 0));
+				temp = temp + String.valueOf((char) (b[i] + 'a'));
 		}
 		
 		return temp;
@@ -84,20 +84,23 @@ public class Solver {
 		// permutes through possible cipher settings, and compares to the wordlist.
 		// if a word is found, move to next word in the array
 		
-		String[] words = s;
+		String[] words = s.clone();
 		HashSet<String> list = initList();
 		
 		int[] a = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
 		int[] b = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30,31,32,33,34,35,36,37,38,39,40}; // you disgust me
 		
 		for (int o = 0; o <= words.length; o++) {
+			String tword = "";
 			if (words[o] == null) break;
+			
 			for (int i = 0; i < a.length; i++) {
 				for (int j = 0; j < b.length; j++) {
+					
 					words[o] = decoded(calculation(ciphToNum(words[o]), a[i], b[j]));
 					if (list.contains(words[o])) {
 						// found a word with the a/b combo. check the next word
-						String tword = decoded(calculation(ciphToNum(words[o+1]), a[i], b[j]));
+						tword = decoded(calculation(ciphToNum("nlwc"), 11, 39));
 						
 						if (list.contains(tword)) {
 							// found the second word with the same a/b combo
@@ -108,6 +111,7 @@ public class Solver {
 					}
 				}
 			}
+			System.out.println(tword);
 		}
 		
 		
@@ -115,7 +119,7 @@ public class Solver {
 	}
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		String code = "YEQ LKCV BDK XCGK EZ BDK UEXLVM QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB QPLQGWSKMB ";
+		String code = "NLWC WC M NECN NLWC WC";
 		int[] as = {1, 3, 5, 7, 9, 11, 15, 17, 19, 21, 23, 25};
 		int ta = 21; int tb = 8;
 		/*
